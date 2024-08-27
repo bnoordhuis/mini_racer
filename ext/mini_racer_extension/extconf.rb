@@ -6,8 +6,8 @@ if RUBY_ENGINE == "truffleruby"
 end
 
 require_relative '../../lib/mini_racer/version'
-gem 'libv8-node', MiniRacer::LIBV8_NODE_VERSION
-require 'libv8-node'
+#gem 'libv8-node', MiniRacer::LIBV8_NODE_VERSION
+#require 'libv8-node'
 
 IS_DARWIN = RUBY_PLATFORM =~ /darwin/
 
@@ -74,7 +74,10 @@ if enable_config('debug') || enable_config('asan')
   CONFIG['debugflags'] << ' -ggdb3 -O0'
 end
 
-Libv8::Node.configure_makefile
+#Libv8::Node.configure_makefile
+vendor_path = File.expand_path("../../../../libv8-node/vendor/v8", __FILE__)
+$CXXFLAGS += " -I#{vendor_path}/include"
+$LDFLAGS += " #{vendor_path}/x86_64-linux/libv8/obj/libv8_monolith.a"
 
 # --exclude-libs is only for i386 PE and ELF targeted ports
 append_ldflags("-Wl,--exclude-libs=ALL ")
