@@ -78,7 +78,7 @@ if enable_config('debug') || enable_config('asan')
 end
 
 #Libv8::Node.configure_makefile
-vendor_path = File.expand_path("../../../../libv8-node/vendor/v8", __FILE__)
+vendor_path = File.expand_path("../../../../libv8-node-debug/vendor/v8", __FILE__)
 $CXXFLAGS += " -I#{vendor_path}/include"
 $LDFLAGS += " #{vendor_path}/x86_64-linux/libv8/obj/libv8_monolith.a"
 
